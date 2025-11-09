@@ -1,67 +1,43 @@
-Step 1: Create Network Topology
+🧩 STEP 1: Create the Network Topology
+Devices you need:
 
-Open Cisco Packet Tracer.
+4 PCs (PC0, PC1, PC2, PC3)
 
-Drag and drop:
+2 Switches (Switch0 and Switch1 — both 2960)
 
-1 Layer 2 Switch (2960)
+1 Router (Router0 — 2911 model)
 
-2 PCs (PC0 and PC1)
+Connections (using Copper Straight-Through cables):
 
-Use Copper Straight-Through Cables to connect:
+Connect PC0 → Switch0 (Fa0/1)
 
-PC0 → Switch (FastEthernet0/1)
+Connect PC1 → Switch0 (Fa0/2)
 
-PC1 → Switch (FastEthernet0/2)
+Connect Switch0 → Router0 (Gig0/0)
 
-Step 2: Assign IP Addresses
+Connect Router0 → Switch1 (Gig0/1)
 
-Click on PC0 → Desktop → IP Configuration
+Connect PC2 → Switch1 
 
-IP Address: 192.168.1.2
+Connect PC3 → Switch1 
 
-Subnet Mask: 255.255.255.0
+💻 STEP 2: Assign IP Addresses
 
-Click on PC1 → Desktop → IP Configuration
+STEP 3: Configure the Router
+Click on Router0 → CLI tab → type these commands:
 
-IP Address: 192.168.1.3
+enable
+configure terminal
 
-Subnet Mask: 255.255.255.0
+interface gigabitEthernet 0/0
+ip address 192.168.1.1 255.255.255.0
+no shutdown
+exit
 
-Step 3: Test Connectivity Using Ping
+interface gigabitEthernet 0/1
+ip address 192.168.2.1 255.255.255.0
+no shutdown
+exit
 
-On PC0 → Desktop → Command Prompt, type:
-
-ping 192.168.1.3
-
-
-You should see replies like:
-
-Reply from 192.168.1.3: bytes=32 time<1ms TTL=128
-
-
-✅ This confirms successful communication between the two PCs through the switch.
-
-Step 5: Capture Packets Using Simulation Mode
-
-Click on the Simulation Mode icon (Stopwatch) at the bottom-right of the Packet Tracer.
-
-On PC0, again type:
-
-ping 192.168.1.3
-
-
-Observe the packets (ICMP Request and Reply) moving between the PCs in the Simulation Window.
-
-Click on the packets to view detailed info such as:
-
-Source and Destination MAC Addresses
-
-IP Addresses
-
-ICMP Echo Request and Echo Reply details
-
-Result:
-
-A wired LAN was successfully created using a Layer 2 switch.
-The communication between PCs was verified using the Ping utility, and the ICMP packets were captured and analyzed using Cisco Packet Tracer’s Simulation Mode.
+end
+write
